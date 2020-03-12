@@ -1,0 +1,14 @@
+[Unit]
+Description=Hostname monitor service
+After=network.target
+StartLimitInterval=0
+
+[Service]
+Type=simple
+Restart=always
+RestartSec=10
+User=cloud_usder
+ExecStart=/home/cloud_user/.config/systemd/user/hostname_ts.py
+
+[Install]
+WantedBy=multi-user.target

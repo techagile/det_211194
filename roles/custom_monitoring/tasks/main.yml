@@ -1,0 +1,5 @@
+---
+# tasks file for custom_monitoring
+- import_tasks: run_monitor.yml
+  when:
+    '"env == linux_dev"'

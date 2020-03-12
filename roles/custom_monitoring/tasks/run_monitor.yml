@@ -1,0 +1,45 @@
+---
+
+- name: Create location to deploy service
+  file:
+    path: "{{ monitor_cron_path }}"
+    state: directory
+    recurse: yes
+    owner: "{{ lookup('env','USER') }}"
+    group: "{{ lookup('env','USER') }}"
+
+- name: Copy script to the client
+  copy: 
+    src: "{{ script_file }}"
+    #dest: "{{ lookup('env','HOME') }}"
+    dest: "{{ monitor_cron_path }}"
+    mode: u+x,g+x,o+x
+
+- name: Run cron script 
+  at:
+    command: "{{ monitor_cron_path }}/hostname_ts.py > /tmp/monitor.log"
+    count: 1
+    units: minutes
+    unique: yes
+
+- name: Copy monitor.service
+  copy:
+    src: "{{ monitor_cron_file }}"
+    dest: "{{ monitor_cron_path }}"
+    owner: "{{ lookup('env','USER') }}"
+    group: "{{ lookup('env','USER') }}"
+
+- name: Reload daemon service 
+  command: "systemctl --user daemon-reload"
+
+- name: Start monitor.service
+  command: "systemctl --user start monitor"
+
+- name: Enable monitor.service at boot
+  command: "systemctl --user enable monitor"
+
+#- name: Start service on boot
+#  service:
+#    name: hostname_ts
+#    pattern: /tmp/hostname_ts.py
+#    enabled: yes
