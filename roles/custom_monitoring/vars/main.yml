@@ -1,6 +1,8 @@
 ---
 # vars file for custom_monitoring
 
+hostname_ts_file: "hostname_ts.py"
 script_file: "../files/hostname_ts.py"
 monitor_cron_path: "{{ lookup('env','HOME') }}/.config/systemd/user"
 monitor_cron_file: "../files/monitor.service"
+

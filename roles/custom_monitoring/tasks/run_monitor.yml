@@ -17,7 +17,7 @@
 
 - name: Run cron script 
   at:
-    command: "{{ monitor_cron_path }}/hostname_ts.py > /tmp/monitor.log"
+    command: "{{ monitor_cron_path }}/{{ hostname_ts_file }}"
     count: 1
     units: minutes
     unique: yes

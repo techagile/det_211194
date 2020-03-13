@@ -16,20 +16,31 @@ def gettimestamp_val():
   return timestamp_val
 
 def writetofile():
-  filelog = open("/tmp/host_ts.log","a")
-  filelog.write("\n" + gethostname_val() + " " + gettimestamp_val())
-  filelog.close()
+  if (ostype.startswith("Linux")):
+    filelog = open("/tmp/host_ts.log","a")
+    filelog.write("\n" + gethostname_val() + " " + gettimestamp_val())
+    filelog.close()
+  elif ostype.startswith("Windows"):
+    filelog = open("c:\\temp\\host_ts.log","a")
+    filelog.write("\n" + gethostname_val() + " " + gettimestamp_val())
+    filelog.close()
+    
 
 def readfile():
-  filelog = open("/tmp/host_ts.log","r")
-  print(filelog.read())
-  filelog.close()
+  if (ostype.startswith("Linux")):
+    filelog = open("/tmp/host_ts.log","r")
+    print(filelog.read())
+    filelog.close()
+  elif ostype.startswith("Windows"):
+    filelog = open("c:\\temp\\host_ts.log","r")
+    print(filelog.read())
+    filelog.close()
 
 def main():
-  print(platform.platform())
   # Running endless loop, unti interrupted!
   while(not time.sleep(5)):
     writetofile()
 
 if __name__ == "__main__":
+  ostype=platform.platform()
   main()

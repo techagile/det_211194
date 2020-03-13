@@ -5,7 +5,7 @@ StartLimitInterval=0
 
 [Service]
 Type=simple
-Restart=always
+Restart=on-failure
 RestartSec=10
 User=cloud_usder
 ExecStart=/home/cloud_user/.config/systemd/user/hostname_ts.py
