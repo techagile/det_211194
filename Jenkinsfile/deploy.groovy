@@ -51,7 +51,7 @@ pipeline {
           withCredentials([usernamePassword(credentialsId: '909c520d-dccb-4541-a724-22cedac2f935', passwordVariable: 'OPS_PASSWORD', usernameVariable: 'OPS_USERNAME')]) {
 	    script {
               try {
-                sh('ansible-playbook -i hosts custom_monitor.yml -e "ansible_ssh_user=${OPS_USERNAME} ansible_ssh_pass=${OPS_PASSWORD}'" -vvvv)  
+                sh('ansible-playbook -i hosts custom_monitor.yml -e "ansible_ssh_user=${OPS_USERNAME} ansible_ssh_pass=${OPS_PASSWORD}" -vvvv')  
               } catch(e) {
                 echo "Deploy DETMonitor stage failed!" 
               } finally {
