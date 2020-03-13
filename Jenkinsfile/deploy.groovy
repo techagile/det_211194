@@ -23,7 +23,6 @@ pipeline {
     stage('Initialise') {
       steps {
         deleteDir()
-        updateGitlabCommitStatus(name: 'build', state: 'pending')
 
 	//console out ENV.VARS	
 	sh 'printenv'
