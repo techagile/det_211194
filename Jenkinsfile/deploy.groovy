@@ -29,7 +29,7 @@ pipeline {
       }
     }
 
-    stage('Clone CellConfig') {
+    stage('Clone DETMonitor') {
       steps {
         dir("${JOB_BASE_NAME}") {
           checkout([$class                 : 'GitSCM',
@@ -44,6 +44,22 @@ pipeline {
       } // end of steps
     } // end of stage
 
+
+    stage('Deploy DETMonitor') {
+      steps{
+        dir("${JOB_BASE_NAME}") {
+	  script {
+            try {
+              sh('ansible-playbook -i hosts custom_monitor.yml')  
+            } catch(e) {
+               echo "Deploy DETMonitor stage failed!" 
+            } finally {
+               echo "Good so far!"
+            } // end of finally
+          } // end of script
+	} // end of dir
+      } // end of steps
+    } // end of stage
   } // end of stages
 } // end of pipeline
 
