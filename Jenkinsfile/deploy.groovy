@@ -19,10 +19,6 @@ pipeline {
     GIT_BRANCH = 'windows_cut'
   }
 
-  triggers {
-        gitlab(triggerOnPush: true, triggerOnMergeRequest: false, branchFilterType: 'NameBasedFilter', includeBranchesSpec: 'windows_cut', excludeBranchesSpec: '')
-  }
-
   post {
         failure {
             updateGitlabCommitStatus(name: 'build', state: 'failed')
