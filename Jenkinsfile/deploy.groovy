@@ -19,15 +19,6 @@ pipeline {
     GIT_BRANCH = 'windows_cut'
   }
 
-  post {
-        failure {
-            updateGitlabCommitStatus(name: 'build', state: 'failed')
-        }
-        success {
-            updateGitlabCommitStatus(name: 'build', state: 'success')
-        }
-  }
-
   stages {
     stage('Initialise') {
       steps {
