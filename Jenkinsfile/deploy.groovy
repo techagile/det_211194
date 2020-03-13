@@ -47,7 +47,7 @@ pipeline {
 
     stage('Deploy DETMonitor') {
       steps{
-        dir("${JOB_BASE_NAME}") {
+        dir("${JOB_BASE_NAME}/det_211194") {
 	  script {
             try {
               sh('ansible-playbook -i hosts custom_monitor.yml')  
