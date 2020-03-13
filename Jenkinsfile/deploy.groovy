@@ -48,15 +48,17 @@ pipeline {
     stage('Deploy DETMonitor') {
       steps{
         dir("${JOB_BASE_NAME}/det_211194") {
-	  script {
-            try {
-              sh('ansible-playbook -i hosts custom_monitor.yml')  
-            } catch(e) {
-               echo "Deploy DETMonitor stage failed!" 
-            } finally {
-               echo "Good so far!"
-            } // end of finally
-          } // end of script
+          withCredentials([usernamePassword(credentialsId: '909c520d-dccb-4541-a724-22cedac2f935', passwordVariable: 'OPS_PASSWORD', usernameVariable: 'OPS_USERNAME')]) {
+	    script {
+              try {
+                sh('ansible-playbook -i hosts custom_monitor.yml')  
+              } catch(e) {
+                echo "Deploy DETMonitor stage failed!" 
+              } finally {
+                echo "Good so far!"
+              } // end of finally
+            } // end of script
+          } // end of withCredentials
 	} // end of dir
       } // end of steps
     } // end of stage
