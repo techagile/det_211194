@@ -27,20 +27,24 @@
 - name: Copy monitor.service
   copy:
     src: "{{ monitor_cron_file }}"
-    dest: "{{ monitor_cron_path }}"
+    dest: "/lib/systemd/system/"
+    #dest: "{{ monitor_cron_path }}"
     #owner: "{{ lookup('env','USER') }}"
-    owner: "cloud_user"
+    #owner: "cloud_user"
     #group: "{{ lookup('env','USER') }}"
-    group: "cloud_user"
+    #group: "cloud_user"
 
 - name: Reload daemon service 
-  command: "systemctl --user daemon-reload"
+  command: "systemctl daemon-reload"
+  become: yes
 
 - name: Start monitor.service
-  command: "systemctl --user start monitor"
+  command: "systemctl start monitor"
+  become: yes
 
 - name: Enable monitor.service at boot
-  command: "systemctl --user enable monitor"
+  command: "systemctl enable monitor"
+  become: yes
 
 #- name: Start service on boot
 #  service:
