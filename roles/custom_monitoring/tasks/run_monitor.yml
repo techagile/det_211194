@@ -20,6 +20,7 @@
     count: 1
     units: minutes
     unique: yes
+  become: yes
 
 - name: Copy monitor.service
   copy:
