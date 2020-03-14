@@ -16,7 +16,7 @@ pipeline {
   }
 
   environment {
-    GIT_BRANCH = 'boot_service'
+    GIT_BRANCH = 'master'
   }
 
   stages {
