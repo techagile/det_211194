@@ -30,7 +30,7 @@
     dest: "{{ monitor_cron_path }}"
     #owner: "{{ lookup('env','USER') }}"
     owner: "cloud_user"
-    $group: "{{ lookup('env','USER') }}"
+    #group: "{{ lookup('env','USER') }}"
     group: "cloud_user"
 
 - name: Reload daemon service 
