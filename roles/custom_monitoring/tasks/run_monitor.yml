@@ -5,8 +5,10 @@
     path: "{{ monitor_cron_path }}"
     state: directory
     recurse: yes
-    owner: "{{ lookup('env','USER') }}"
-    group: "{{ lookup('env','USER') }}"
+    #owner: "{{ lookup('env','USER') }}"
+    owner: "cloud_user"
+    #group: "{{ lookup('env','USER') }}"
+    group: "cloud_user"
 
 - name: Copy script to the client
   copy: 
@@ -17,7 +19,7 @@
 
 - name: Run cron script 
   at:
-    command: "{{ monitor_cron_path }}/hostname_ts.py > /tmp/monitor.log"
+    command: "{{ monitor_cron_path }}/{{ hostname_ts_file }}"
     count: 1
     units: minutes
     unique: yes
@@ -26,8 +28,10 @@
   copy:
     src: "{{ monitor_cron_file }}"
     dest: "{{ monitor_cron_path }}"
-    owner: "{{ lookup('env','USER') }}"
-    group: "{{ lookup('env','USER') }}"
+    #owner: "{{ lookup('env','USER') }}"
+    owner: "cloud_user"
+    $group: "{{ lookup('env','USER') }}"
+    group: "cloud_user"
 
 - name: Reload daemon service 
   command: "systemctl --user daemon-reload"
