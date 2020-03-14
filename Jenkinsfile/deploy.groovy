@@ -16,7 +16,7 @@ pipeline {
   }
 
   environment {
-    GIT_BRANCH = 'master'
+    GIT_BRANCH = 'boot_service'
   }
 
   stages {
@@ -51,7 +51,7 @@ pipeline {
           withCredentials([usernamePassword(credentialsId: '909c520d-dccb-4541-a724-22cedac2f935', passwordVariable: 'OPS_PASSWORD', usernameVariable: 'OPS_USERNAME')]) {
 	    script {
               try {
-                sh('ansible-playbook -i hosts custom_monitor.yml -u cloud_user -e "ansible_ssh_user=${OPS_USERNAME} ansible_ssh_pass=${OPS_PASSWORD} ansible_become_pass=${OPS_PASSWORD}" -vvvv')  
+                sh('ansible-playbook -i hosts custom_monitor.yml -u cloud_user -e "ansible_ssh_user=${OPS_USERNAME} ansible_ssh_pass=${OPS_PASSWORD} ansible_become_pass=${OPS_PASSWORD}"')  
               } catch(e) {
                 echo "Deploy DETMonitor stage failed!" 
               } finally {

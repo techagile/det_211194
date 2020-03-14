@@ -4,18 +4,14 @@
   file:
     path: "{{ monitor_cron_path }}"
     state: directory
-    recurse: yes
-    #owner: "{{ lookup('env','USER') }}"
-    owner: "cloud_user"
-    #group: "{{ lookup('env','USER') }}"
-    group: "cloud_user"
+  become: yes
 
 - name: Copy script to the client
   copy: 
     src: "{{ script_file }}"
-    #dest: "{{ lookup('env','HOME') }}"
     dest: "{{ monitor_cron_path }}"
     mode: u+x,g+x,o+x
+  become: yes
 
 - name: Run cron script 
   at:
@@ -23,27 +19,23 @@
     count: 1
     units: minutes
     unique: yes
+  become: yes
 
 - name: Copy monitor.service
   copy:
     src: "{{ monitor_cron_file }}"
     dest: "{{ monitor_cron_path }}"
-    #owner: "{{ lookup('env','USER') }}"
-    owner: "cloud_user"
-    #group: "{{ lookup('env','USER') }}"
-    group: "cloud_user"
+  become: yes
 
 - name: Reload daemon service 
-  command: "systemctl --user daemon-reload"
+  command: "systemctl daemon-reload"
+  become: yes
 
 - name: Start monitor.service
-  command: "systemctl --user start monitor"
+  command: "systemctl start monitor"
+  become: yes
 
 - name: Enable monitor.service at boot
-  command: "systemctl --user enable monitor"
+  command: "systemctl enable monitor"
+  become: yes
 
-#- name: Start service on boot
-#  service:
-#    name: hostname_ts
-#    pattern: /tmp/hostname_ts.py
-#    enabled: yes

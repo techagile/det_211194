@@ -9,7 +9,7 @@ Type=simple
 Restart=on-failure
 RestartSec=10
 User=cloud_usder
-ExecStart=/home/cloud_user/.config/systemd/user/hostname_ts.py
+ExecStart=/lib/systemd/system/monitor/hostname_ts.py
 
 [Install]
 WantedBy=multi-user.target
