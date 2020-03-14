@@ -4,11 +4,7 @@
   file:
     path: "{{ monitor_cron_path }}"
     state: directory
-    recurse: yes
-    #owner: "{{ lookup('env','USER') }}"
-    owner: "cloud_user"
-    #group: "{{ lookup('env','USER') }}"
-    group: "cloud_user"
+  become: yes
 
 - name: Copy script to the client
   copy: 
@@ -16,6 +12,7 @@
     #dest: "{{ lookup('env','HOME') }}"
     dest: "{{ monitor_cron_path }}"
     mode: u+x,g+x,o+x
+  become: yes
 
 - name: Run cron script 
   at:
