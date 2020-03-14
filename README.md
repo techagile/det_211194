@@ -9,17 +9,38 @@ Ansible v2.9
 Jenkins v2.225
 Setup environment variables on Jenkins slave, but this is not required when using LDAP
 OPS_USERNAME=<username>
+    
 OPS_PASSWORD=<password>
 
 ### Installing 
 
-Jenkins
++ Setup Jenkins Server
 
+This project use Jenkins server as slave, as well
 
-Role Variables
---------------
++ Setup Jenkins slave and label it as 'master'
+![](images/Jenkins_master.JPG)
 
-A description of the settable variables for this role should go here, including any variables that are in defaults/main.yml, vars/main.yml, and any variables that can/should be set via parameters to the role. Any variables that are read from other roles and/or the global scope (ie. hostvars, group vars, etc.) should be mentioned here as well.
++ Setup Jenkins Credentials
+![](images/Jenkins_credentials.JPG)
+
++ Setup Jenkins Pipeline
+![](images/Jenkins_Pipeline_setup.JPG)
+
++ Setup Linux node to act as client. The client IP is added to the inventory file i.e. ~/hosts
+Make sure there is passwordless access to the Linux node. 
+
+## Run the pipeline
+
+As per the Jenkinsfile/deploy.groovy, there are 2 stages, namely:
++ Clone DETMonitor (which clone the artefact i.e. pull from GIT)
+
++ Deploy DETMonitor (which deploys the artefact on to the clients, which is setup in the ~/hosts file)
+
+![](images/Jenkins_Pipeline_run.JPG)
+
++ Pipeline run output
+![](images/Jenkins_Pipeline_run_out.JPG)
 
 Dependencies
 ------------
