@@ -33,6 +33,7 @@
     #owner: "cloud_user"
     #group: "{{ lookup('env','USER') }}"
     #group: "cloud_user"
+  become: yes
 
 - name: Reload daemon service 
   command: "systemctl daemon-reload"
