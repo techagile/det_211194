@@ -45,26 +45,38 @@ As per the Jenkinsfile/deploy.groovy, there are 2 stages, namely:
 + DevOps monitoring output
 ![](images/monitoring_devops_out.JPG)
 
-Dependencies
+Caveat
 ------------
 
-A list of other roles hosted on Galaxy should go here, plus any details in regards to parameters that may need to be set for other roles, or variables that are used from other roles.
+Basically, the role confirms to:
++ run the service as daemon [done]
+```
+monitor.service - Hostname monitor service
+   Loaded: loaded (/lib/systemd/system/monitor.service; enabled; vendor preset: enabled)
+```
++ fails after 3 restart attempts, as per the monitor.service i.e. StartLimitBurst=3 [done]
+```
+[Unit]
+Description=Hostname monitor service
+After=network.target
+StartLimitBurst=3
+StartLimitInterval=10
+```
 
-Example Playbook
-----------------
+- Auto start on boot [missing]
 
-Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
+Though the service is set to auto-restart on boot, but confirmed that the service isn't picking up on reboot. 
 
-    - hosts: servers
-      roles:
-         - { role: username.rolename, x: 42 }
+- Service to run as non-priviledged user [missing]
 
-License
--------
+Initially the service was setup to run as non-priviledged user via; and it was working well. But later changed to the current state. Need further investigation to get this, sorted. 
+```
+- name: Reload daemon service
+  command: "systemctl --user daemon-reload"
 
-BSD
+- name: Start monitor.service
+  command: "systemctl --user start monitor"
 
-Author Information
-------------------
-
-An optional section for the role authors to include contact information, or a website (HTML is not allowed).
+- name: Enable monitor.service at boot
+  command: "systemctl --user enable monitor"
+```
