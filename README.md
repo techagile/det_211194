@@ -42,6 +42,9 @@ As per the Jenkinsfile/deploy.groovy, there are 2 stages, namely:
 + Pipeline run output
 ![](images/Jenkins_Pipeline_run_out.JPG)
 
++ DevOps monitoring output
+![](images/monitoring_devops_out.JPG)
+
 Dependencies
 ------------
 
