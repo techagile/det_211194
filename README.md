@@ -1,16 +1,20 @@
-Role Name
-=========
+# Project Title
 
-Role to deploy monitorting service on nodes
+Deploy monitorting service for DevOps. Basically, the project result in setting up a monitoring script that runs at schedule interval, starts on boot, continuously.   
 
 
-Requirements
-------------
+## Prerequisites
 
 Ansible v2.9
 Jenkins v2.225
+Setup environment variables on Jenkins slave, but this is not required when using LDAP
+OPS_USERNAME=<username>
+OPS_PASSWORD=<password>
 
-Any pre-requisites that may not be covered by Ansible itself or the role should be mentioned here. For instance, if the role uses the EC2 module, it may be a good idea to mention in this section that the boto package is required.
+### Installing 
+
+Jenkins
+
 
 Role Variables
 --------------

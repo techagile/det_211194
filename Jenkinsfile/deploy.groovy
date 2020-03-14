@@ -16,7 +16,7 @@ pipeline {
   }
 
   environment {
-    GIT_BRANCH = 'windows_cut'
+    GIT_BRANCH = 'master'
   }
 
   stages {
